@@ -1,0 +1,85 @@
+/* monthlyTransaction.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0;
+    padding-left: 80px; /* Adjust padding to align with back button */
+  }
+  
+  .back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .category-card {
+    width: 100%;
+  }
+  
+  .customer-list {
+    margin-top: 10px;
+  }
+  
+  .customer-item {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .chart-container {
+    margin-top: 20px;
+  }
+  
+  .loading-container,
+  .error-container,
+  .no-data-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .error-container {
+    color: red;
+  }
+  
+  .no-data-container {
+    color: #777;
+  }
+  

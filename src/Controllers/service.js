@@ -110,12 +110,13 @@ export const getQuarterlyTransactions = (data, officeId, quarter) => {
   data.transactions.forEach(transaction => {
     const date = new Date(transaction.date_of_transaction);
     const month = date.getMonth() + 1; // getMonth() is zero-based
-
+    // console.log('mondsa',month);
     if (
-      transaction.office_id === officeId &&
+      transaction.office_id == officeId &&
       month >= startMonth &&
       month <= endMonth
     ) {
+        console.log("asd");
       result.count++;
       result.volume += transaction.amount;
     }
@@ -125,22 +126,46 @@ export const getQuarterlyTransactions = (data, officeId, quarter) => {
 };
 
 // Get national vs international transactions
+// export const getNationalVsInternational = (data) => {
+//   const result = { national: 0, international: 0 };
+//   data.customers.forEach(customer => {
+//     const transactions = data.transactions.filter(
+//       transaction => transaction.customer_id === customer.id
+//     );
+//     transactions.forEach(transaction => {
+//       if (customer.type === 'national') {
+//         result.national += transaction.amount;
+//       } else {
+//         result.international += transaction.amount;
+//       }
+//     });
+//   });
+//   return result;
+// };
+
 export const getNationalVsInternational = (data) => {
-  const result = { national: 0, international: 0 };
-  data.customers.forEach(customer => {
-    const transactions = data.transactions.filter(
-      transaction => transaction.customer_id === customer.id
-    );
-    transactions.forEach(transaction => {
-      if (customer.type === 'national') {
-        result.national += transaction.amount;
-      } else {
-        result.international += transaction.amount;
-      }
+    const result = { national: 0, international: 0, nationalData: [], internationalData: [] };
+
+    data.customers.forEach(customer => {
+      const transactions = data.transactions.filter(
+        transaction => transaction.customer_id === customer.id
+      );
+      transactions.forEach(transaction => {
+        const date = new Date(transaction.date_of_transaction).toString(); // Convert Date to ISO string
+        const dataPoint = { x: date, y: (transaction.amount.toString()) };
+
+        if (customer.type === 'national') {
+          result.national += transaction.amount;
+          result.nationalData.push(dataPoint);
+        } else {
+          result.international += transaction.amount;
+          result.internationalData.push(dataPoint);
+        }
+      });
     });
-  });
-  return result;
+    return result;
 };
+
 
 // Get max monthly transactions by category between given months
 export const getMaxMonthlyTransactionsByCategory = (data, startMonth, endMonth) => {
