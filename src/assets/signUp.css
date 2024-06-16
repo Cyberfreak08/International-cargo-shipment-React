@@ -1,4 +1,9 @@
-/* SignUp.css */
+.title-signUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .sign-up-form-container {
     display: flex;
     flex-direction: column;

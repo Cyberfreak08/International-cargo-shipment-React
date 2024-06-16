@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { saveUserToLocalStorage } from "../../Controllers/userService";
+import {
+  getUserFromLocalStorage,
+  saveUserToLocalStorage,
+} from "../../Controllers/userService";
 import axios from "axios";
 
 // name:"user";
@@ -41,6 +44,19 @@ const userSlice = createSlice({
       state.loginLoading = false;
       state.loginError = action.payload;
     },
+    getUserData: (state, action) => {
+      state.loginLoading = false;
+      state.loginError = action.payload;
+    },
+    getUserDataFailure: (state, action) => {
+      state.loginLoading = false;
+      state.loginError = action.payload;
+    },
+    getUserDataSuccess: (state, action) => {
+      state.loginLoading = false;
+      state.user = action.payload;
+      state.isLoggedIn = true;
+    },
     logout: (state) => {
       state.user = initialState.user;
       state.isLoggedIn = false;
@@ -57,10 +73,23 @@ export const {
   loginRequest,
   loginSuccess,
   loginFailure,
+  getUserData,
+  getUserDataSuccess,
+  getUserDataFailure,
   logout,
 } = userSlice.actions;
 
 //thunk functions....
+
+export const getUserDataFromLocalStorage = () => async (dispatch) => {
+  try {
+    dispatch(getUserData())
+    const loggedUser = getUserFromLocalStorage();
+    dispatch(getUserDataSuccess(loggedUser));
+  } catch (error) {
+    dispatch(signupFailure(error.response?.data?.message || error.message));
+  }
+};
 
 export const signupUser = (user) => async (dispatch) => {
   dispatch(signupRequest());
@@ -69,21 +98,18 @@ export const signupUser = (user) => async (dispatch) => {
     const findUser = response.data.filter(
       (u) => u.email === user.email && u.password === user.password
     );
-    if(!findUser.length){
-      const postResponse = await axios.post("http://localhost:5000/users", user);
-    saveUserToLocalStorage(postResponse.data);
-    dispatch(signupSuccess(postResponse.data));
-    }else{
-      signupFailure(
-        'The user email already exist,Try logging in'
-      )
+    if (!findUser.length) {
+      const postResponse = await axios.post(
+        "http://localhost:5000/users",
+        user
+      );
+      saveUserToLocalStorage(postResponse.data);
+      dispatch(signupSuccess(postResponse.data));
+    } else {
+      signupFailure("The user email already exist,Try logging in");
     }
   } catch (error) {
-    dispatch(
-      signupFailure(
-        error.response?.data?.message || error.message
-      )
-    );
+    dispatch(signupFailure(error.response?.data?.message || error.message));
   }
 };
 
@@ -97,18 +123,12 @@ export const loginUser =
         (u) => u.email === email && u.password === password
       );
       if (user.length) {
-        saveUserToLocalStorage(user);
-        dispatch(loginSuccess(user));
+        saveUserToLocalStorage(Object.assign(user));
+        dispatch(loginSuccess(Object.assign(user)));
       } else {
-        dispatch(
-          loginFailure("Invalid username or password")
-        );
+        dispatch(loginFailure("Invalid username or password"));
       }
     } catch (error) {
-      dispatch(
-        loginFailure(
-          error.response?.data?.message || error.message
-        )
-      );
+      dispatch(loginFailure(error.response?.data?.message || error.message));
     }
   };

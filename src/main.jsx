@@ -11,10 +11,16 @@ import { Dashboard } from './Pages/dashboard/index.jsx';
 import { routerConstant } from './utils/constants.js';
 import SignIn from './Pages/SignIn/index.jsx';
 import SignUp from './Pages/SignUp/index.jsx';
+import ErrorPage from './Pages/ErrorPage/index.jsx';
+import NationalVsInternational from './Pages/NationalVsInternational/index.jsx';
+import MaxRevenueCategory from './Pages/MaxRevenueCategory/index.jsx';
+import QuarterlyTransactions from './Pages/QuarterResult/index.jsx';
+import MonthlyTransactions from './Pages/MonthlyTransactions/index.jsx';
 const router = createBrowserRouter([
   {
     path: routerConstant.dashboard,
     element: <Dashboard />,
+    errorElement: <ErrorPage />,
   },
   {
     path: routerConstant.login,
@@ -23,7 +29,22 @@ const router = createBrowserRouter([
   {
     path: routerConstant.register,
     element: <SignUp />
-  }
+  },{
+    path:routerConstant.maxRevenue,
+    element:<MaxRevenueCategory />
+  },
+  {
+    path:routerConstant.secondQuarter,
+    element:<QuarterlyTransactions />
+  },
+  {
+    path:routerConstant.volume,
+    element:<NationalVsInternational />
+  },
+  {
+    path:routerConstant.lastQuarter,
+    element:<MonthlyTransactions />
+  },
 ]);
 
 // const router = createBrowserRouter([

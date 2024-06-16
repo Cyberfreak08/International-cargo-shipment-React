@@ -3,7 +3,7 @@ import { Button, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../assets/signIn.css";
-import { routerConstant } from "../../utils/constants";
+import { routerConstant, title } from "../../utils/constants";
 import { loginUser } from "../../Redux/reducers/userSlice";
 import { useNavigate } from "react-router-dom";
 const SignIn = () => {
@@ -25,6 +25,7 @@ const SignIn = () => {
   }, [signInSuccess, navigate, signInError]);
   return (
     <div>
+      <h2 className="title-signIn">{title}</h2>
       <div className="sign-in-form-container">
         <h2 className="form-title">Sign In</h2>
 

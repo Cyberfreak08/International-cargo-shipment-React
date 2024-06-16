@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../../assets/signUp.css";
-import { routerConstant } from "../../utils/constants";
+import { routerConstant, title } from "../../utils/constants";
 import { signupUser } from "../../Redux/reducers/userSlice";
 
 const SignUp = () => {
@@ -27,6 +27,7 @@ const SignUp = () => {
 
   return (
     <div>
+      <h2 className="title-signUp">{title}</h2>
       <div className="sign-up-form-container">
         <h2 className="form-title">Sign Up</h2>
 
