@@ -5,7 +5,7 @@ import NavBar from "../../Components/navBar";
 import { Layout} from 'antd';
 const { Content, Footer } = Layout;
 
-export const Dashboard = () => {
+ const Dashboard = () => {
     return(
         <div>
         <NavBar />
@@ -22,3 +22,5 @@ export const Dashboard = () => {
         </div>
     )
 };
+
+export default Dashboard;

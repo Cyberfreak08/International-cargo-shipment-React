@@ -36,7 +36,10 @@ const TopNavbar = () => {
         return navigate(routerConstant.volume);
       case "4th-quarter-result":
         return navigate(routerConstant.lastQuarter);
-      case "logout":
+        case "contact-list":
+          // dispatch(logout());
+          return navigate(routerConstant.contactList);
+        case "logout":
         dispatch(logout());
         return navigate(routerConstant.login);
       default:
@@ -54,6 +57,9 @@ const TopNavbar = () => {
         Customer Volume (National vs International)
       </Menu.Item>
       <Menu.Item key="4th-quarter-result">4th Quarter Result</Menu.Item>
+      {loggedUser.type == "admin" && (
+        <Menu.Item key="contact-list">Contact List</Menu.Item>
+      )}
     </Menu>
   );
 

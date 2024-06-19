@@ -1,0 +1,30 @@
+.contacts-container {
+    padding: 30px;
+    background-color: #f0f2f5;
+  }
+  
+  .contacts-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1890ff;
+  }
+  
+  .contact-card {
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .contact-card p {
+    margin: 10px 0;
+  }
+  
+  .contact-card p strong {
+    color: #1890ff;
+  }
+  
