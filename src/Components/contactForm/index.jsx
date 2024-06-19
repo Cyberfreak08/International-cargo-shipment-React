@@ -1,7 +1,8 @@
 // ContactForm.js
-import { useState } from 'react';
-import { Form, Input, Button, Typography } from 'antd';
-import '../../assets/contactForm.css';
+import { useState } from "react";
+import { Form, Input, Button, Typography } from "antd";
+import "../../assets/contactForm.css";
+import { storeContactFormDetails } from "../../Redux/reducers/userSlice";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -9,9 +10,10 @@ const { Title } = Typography;
 const ContactForm = () => {
   const [form] = Form.useForm();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    country: "",
+    message: "",
   });
 
   const handleInputChange = (e) => {
@@ -22,17 +24,30 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = () => {
-    if (formData.name && formData.email && formData.message) {
-      let contactList = localStorage.getItem('contactList');
-      let contacts = contactList ? JSON.parse(contactList) : [];
-      contacts.push(formData);
-      localStorage.setItem('contactList', JSON.stringify(contacts));
-      alert('Form submitted successfully!');
+  const handleSubmit = async() => {
+    if (
+      formData.name &&
+      formData.email &&
+      formData.country &&
+      formData.message
+    ) {
+      const user = {
+        name: formData.name,
+        email: formData.email,
+        country: formData.country,
+        message: formData.message,
+        dateSent: new Date(),
+      };
+      const response = await storeContactFormDetails(user);
+      if(response){
+        alert("Form submitted successfully!");
       form.resetFields();
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: "", email: "", country: "", message: "" });
+      }else {
+        alert('Error in submitting the form !!')
+      }
     } else {
-      alert('Please fill in all fields');
+      alert("Please fill in all fields!");
     }
   };
 
@@ -41,7 +56,12 @@ const ContactForm = () => {
       <Title level={2}>Contact Us</Title>
       <Form form={form} className="contact-form" onFinish={handleSubmit}>
         <Form.Item label="Name" required>
-          <Input name="name" value={formData.name} onChange={handleInputChange} placeholder="Name" />
+          <Input
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            placeholder="Name"
+          />
         </Form.Item>
         <Form.Item label="Email" required>
           <Input
@@ -50,6 +70,14 @@ const ContactForm = () => {
             onChange={handleInputChange}
             type="email"
             placeholder="Email"
+          />
+        </Form.Item>
+        <Form.Item label="Country" required>
+          <Input
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+            placeholder="Country"
           />
         </Form.Item>
         <Form.Item label="Message" required>

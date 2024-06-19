@@ -7,7 +7,7 @@ import axios from "axios";
 
 // name:"user";
 const initialState = {
-  user: { username: "", email: "", pasword: "" },
+  user: { username: "", email: "", pasword: "",usertype: "" },
   signupLoading: false,
   signupError: null,
   loginLoading: false,
@@ -83,9 +83,11 @@ export const {
 
 export const getUserDataFromLocalStorage = () => async (dispatch) => {
   try {
-    dispatch(getUserData())
+    dispatch(getUserData());
     const loggedUser = getUserFromLocalStorage();
-    dispatch(getUserDataSuccess(loggedUser));
+    loggedUser !== null
+      ? dispatch(getUserDataSuccess(loggedUser))
+      : dispatch(signupFailure("User not logged in!!!"));
   } catch (error) {
     dispatch(signupFailure(error.response?.data?.message || error.message));
   }
@@ -99,6 +101,7 @@ export const signupUser = (user) => async (dispatch) => {
       (u) => u.email === user.email && u.password === user.password
     );
     if (!findUser.length) {
+      user.type ='user';
       const postResponse = await axios.post(
         "http://localhost:5000/users",
         user
@@ -125,10 +128,20 @@ export const loginUser =
       if (user.length) {
         saveUserToLocalStorage(Object.assign(user));
         dispatch(loginSuccess(Object.assign(user)));
-      } else {
+      } 
+      else {
         dispatch(loginFailure("Invalid username or password"));
       }
     } catch (error) {
       dispatch(loginFailure(error.response?.data?.message || error.message));
     }
   };
+
+export const storeContactFormDetails = async (values) => {
+  const userDetails = values;
+  const postResponse = await axios.post(
+    "http://localhost:5000/contacts",
+    userDetails
+  );
+  return postResponse ? true : false;
+};

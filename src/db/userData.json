@@ -4,19 +4,39 @@
       "id": "a820",
       "name": "harisundar",
       "email": "asd@gmail.com",
-      "password": "Hari@2001"
+      "password": "Hari@2001",
+      "type": "user"
     },
     {
       "id": "5df0",
       "name": "harisundar",
       "email": "harisundar@gmail.com",
-      "password": "Hari@2001"
+      "password": "Hari@2001",
+      "type": "user"
     },
     {
       "id": "a624",
-      "name": "harisundar_sivakumar",
+      "name": "Harisundar S",
       "email": "harisundarofficial08@gmail.com",
-      "password": "Hari@2001"
+      "password": "Hari@2001",
+      "type": "admin"
+    },
+    {
+      "id": "3a91",
+      "name": "cyber",
+      "email": "cyber08@gmail.com",
+      "password": "Cyber@08",
+      "type": "user"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "ad4a",
+      "name": "harisundar",
+      "email": "harisundarofficial08@gmail.com",
+      "country": "India",
+      "message": "Hii ",
+      "dateSent": "2024-06-17T06:39:41.655Z"
     }
   ]
 }
